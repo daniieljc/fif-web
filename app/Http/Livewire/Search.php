@@ -44,12 +44,14 @@ class Search extends Component
         $response = Http::get('https://servers-frontend.fivem.net/api/servers/single/' . $urlData[2]);
         $response = $response->json();
 
-        $this->address = $response['Data']['connectEndPoints'][0];
-        $this->server_name = $response['Data']['hostname'];
-        $this->owner_name = $response['Data']['ownerName'];
-        $this->owner_url = $response['Data']['ownerProfile'];
-        $this->total_players = $response['Data']['clients'];
+        if(isset($response['Data'])){
+            $this->address = $response['Data']['connectEndPoints'][0];
+            $this->server_name = $response['Data']['hostname'];
+            $this->owner_name = $response['Data']['ownerName'];
+            $this->owner_url = $response['Data']['ownerProfile'];
+            $this->total_players = $response['Data']['clients'];
 
-        $this->show = true;
+            $this->show = true;
+        }
     }
 }
