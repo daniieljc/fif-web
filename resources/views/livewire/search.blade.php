@@ -37,7 +37,7 @@
                         Address
                     </div>
                     <div class="mt-1 text-sm text-gray-900">
-                        {{$address}}
+                        <a target="_blank" href="https://ip-api.com/#{{$address}}">{{$address}}</a>
                     </div>
                 </div>
                 <div class="sm:col-span-1">
