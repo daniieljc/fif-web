@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @livewireStyles
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118150984-11"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-118150984-11');
+    </script>
 </head>
 <body>
 <div class="bg-gray-900 min-h-screen">
