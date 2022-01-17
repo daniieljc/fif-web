@@ -9,7 +9,7 @@
     <meta name="keywords"
           content="fivem, cfx, ip finder, server fivem"/>
 
-    <title>{{ config('app.name', 'FFinder') }}</title>
+    <title>{{ config('app.name', 'CFX Info') }}</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
