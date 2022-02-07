@@ -49,25 +49,29 @@ class Search extends Component
         $response = Http::get('https://servers-frontend.fivem.net/api/servers/single/' . $urlData[2]);
         $response = $response->json();
 
-        if (isset($response['Data'])) {
-            $addressAux = explode(':', $response['Data']['connectEndPoints'][0]);
-            $this->address = $addressAux[0];
+        if (isset($response['Data']['connectEndPoints'][0])) {
+            if (filter_var($response['Data']['connectEndPoints'][0], FILTER_VALIDATE_URL)) {
+                $addressAux = $response['Data']['connectEndPoints'][0];
+                $this->address = $addressAux;
+            } else {
+                $addressAux = explode(':', $response['Data']['connectEndPoints'][0]);
+                $this->address = $addressAux[0];
+            }
+
             $this->server_name = $response['Data']['hostname'];
             $this->owner_name = $response['Data']['ownerName'];
             $this->owner_url = $response['Data']['ownerProfile'];
             $this->total_players = $response['Data']['clients'];
 
-            $requestAPI = Http::get($this->end_point . $addressAux[0]);
+            $requestAPI = Http::get($this->end_point . $this->address);
             $hostingData = json_decode($requestAPI);
-            if ($hostingData != null) {
+            if ($hostingData != null && $hostingData->status != 'fail') {
                 $this->isp = $hostingData->isp;
                 $this->country = $hostingData->country;
-            }else{
+            } else {
                 $this->isp = 'ISP';
                 $this->country = 'COUNTRY';
             }
-
-
             $this->show = true;
         }
     }
