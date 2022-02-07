@@ -36,8 +36,8 @@
                     <div class="text-sm font-medium text-gray-500">
                         Address
                     </div>
-                    <div class="mt-1 text-sm text-gray-900">
-                        <a target="_blank" href="https://ip-api.com/#{{$address}}">{{$address}}</a>
+                    <div class="mt-1 text-sm">
+                        <a target="_blank" class="text-sky-400" href="https://ip-api.com/#{{$address}}">{{$address}}</a>
                     </div>
                 </div>
                 <div>
