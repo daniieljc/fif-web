@@ -19,7 +19,7 @@ class Search extends Component
     public $isp;
     public $country;
 
-    public $end_point = "http://ip-api.com/php/";
+    public $end_point = "http://ip-api.com/json/";
 
     protected $rules = [
         'url' => 'required|regex:/cfx/',
@@ -60,8 +60,8 @@ class Search extends Component
             $requestAPI =Http::get($this->end_point.$addressAux[0]);
             $hostingData = json_decode($requestAPI);
             
-            $this->isp = $hostingData['isp'];
-            $this->country = $hostingData['country'];
+            $this->isp = $hostingData->isp;
+            $this->country = $hostingData->country;
 
             $this->show = true;
         }
