@@ -50,28 +50,26 @@ class Search extends Component
         $response = $response->json();
 
         if (isset($response['Data']['connectEndPoints'][0])) {
-            if (filter_var($response['Data']['connectEndPoints'][0], FILTER_VALIDATE_URL)) {
-                $addressAux = $response['Data']['connectEndPoints'][0];
-                $this->address = $addressAux;
-            } else {
-                $addressAux = explode(':', $response['Data']['connectEndPoints'][0]);
-                $this->address = $addressAux[0];
-            }
-
             $this->server_name = $response['Data']['hostname'];
             $this->owner_name = $response['Data']['ownerName'];
             $this->owner_url = $response['Data']['ownerProfile'];
             $this->total_players = $response['Data']['clients'];
 
-            $requestAPI = Http::get($this->end_point . $this->address);
-            $hostingData = json_decode($requestAPI);
-            if ($hostingData != null && $hostingData->status != 'fail') {
-                $this->isp = $hostingData->isp;
-                $this->country = $hostingData->country;
-            } else {
-                $this->isp = 'ISP';
-                $this->country = 'COUNTRY';
+            if (!filter_var($response['Data']['connectEndPoints'][0], FILTER_VALIDATE_URL)) {
+                $addressAux = explode(':', $response['Data']['connectEndPoints'][0]);
+                $this->address = $addressAux[0];
+
+                $requestAPI = Http::get($this->end_point . $this->address);
+                $hostingData = json_decode($requestAPI);
+                if ($hostingData != null && $hostingData->status != 'fail') {
+                    $this->isp = $hostingData->isp;
+                    $this->country = $hostingData->country;
+                } else {
+                    $this->isp = 'ISP';
+                    $this->country = 'COUNTRY';
+                }
             }
+
             $this->show = true;
         }
     }
