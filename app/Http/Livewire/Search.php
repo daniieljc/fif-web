@@ -68,6 +68,10 @@ class Search extends Component
                     $this->isp = 'ISP';
                     $this->country = 'COUNTRY';
                 }
+            }else{
+                $this->address = $response['Data']['connectEndPoints'][0];
+                $this->isp = 'ISP';
+                $this->country = 'COUNTRY';
             }
 
             $this->show = true;
