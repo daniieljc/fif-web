@@ -31,8 +31,8 @@
     </div>
     @if($show)
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 p-6">
-                <div class="sm:col-span-1">
+            <div class="grid grid-rows-4 gap-x-4 gap-y-8 p-6">
+                <div>
                     <div class="text-sm font-medium text-gray-500">
                         Address
                     </div>
@@ -40,7 +40,15 @@
                         <a target="_blank" href="https://ip-api.com/#{{$address}}">{{$address}}</a>
                     </div>
                 </div>
-                <div class="sm:col-span-1">
+                <div>
+                    <div class="text-sm font-medium text-gray-500">
+                        Location
+                    </div>
+                    <div class="mt-1 text-sm text-gray-900">
+                        {{$country}}
+                    </div>
+                </div>
+                <div>
                     <div class="text-sm font-medium text-gray-500">
                         Server Name
                     </div>
@@ -48,7 +56,7 @@
                         {{$server_name}}
                     </div>
                 </div>
-                <div class="sm:col-span-1">
+                <div>
                     <div class="text-sm font-medium text-gray-500">
                         Owner Name
                     </div>
@@ -56,7 +64,7 @@
                         <a class="text-sky-400" target="_blank" href="{{$owner_url}}">{{$owner_name}}</a>
                     </div>
                 </div>
-                <div class="sm:col-span-1">
+                <div>
                     <div class="text-sm font-medium text-gray-500">
                         Total Players
                     </div>

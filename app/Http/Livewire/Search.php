@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -15,6 +16,10 @@ class Search extends Component
     public $owner_name;
     public $owner_url;
     public $total_players;
+    public $isp;
+    public $country;
+
+    public $end_point = "http://ip-api.com/php/";
 
     protected $rules = [
         'url' => 'required|regex:/cfx/',
@@ -45,11 +50,18 @@ class Search extends Component
         $response = $response->json();
 
         if(isset($response['Data'])){
-            $this->address = $response['Data']['connectEndPoints'][0];
+            $addressAux = explode(':',$response['Data']['connectEndPoints'][0]);
+            $this->address = $addressAux[0];
             $this->server_name = $response['Data']['hostname'];
             $this->owner_name = $response['Data']['ownerName'];
             $this->owner_url = $response['Data']['ownerProfile'];
             $this->total_players = $response['Data']['clients'];
+
+            $requestAPI =Http::get($this->end_point.$addressAux[0]);
+            $hostingData = json_decode($requestAPI);
+            
+            $this->isp = $hostingData['isp'];
+            $this->country = $hostingData['country'];
 
             $this->show = true;
         }
