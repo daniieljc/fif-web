@@ -35,7 +35,7 @@ export class App extends Component {
         .then((res) => res.json())
         .then((data) => {
           if (!data["error"]) {
-            if (!this.isUrl(data["Data"]["connectEndPoints"][0])) {
+            if (!this.isValidURL(data["Data"]["connectEndPoints"][0])) {
               let ip = data["Data"]["connectEndPoints"][0].split(":");
               fetch("http://ip-api.com/json/" + ip[0])
                 .then((res) => res.json())
@@ -71,11 +71,11 @@ export class App extends Component {
     }
   }
 
-  isUrl(s) {
-    var regexp =
-      /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    return regexp.test(s);
-  }
+  isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
+
 
   state = {
     resultShow: false,
