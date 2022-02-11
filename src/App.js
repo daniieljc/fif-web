@@ -41,12 +41,15 @@ export class App extends Component {
                 .then((res) => res.json())
                 .then((data) => {
                   this.setState({
-                    address: data["query"],
                     isp: data["isp"],
                     country: data["country"],
                   });
                 })
                 .catch(console.log);
+
+              this.setState({
+                address: ip[0]
+              });
             }
             this.setState({
               server_name: data["Data"]["hostname"],
