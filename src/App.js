@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Result } from "./Result";
 
 const validateURL = /cfx/;
 
@@ -15,7 +14,8 @@ export class App extends Component {
       address: undefined,
       isp: undefined,
       total_players: undefined,
-      showResult: false
+      showResult: false,
+      error: undefined,
     };
   }
 
@@ -24,32 +24,40 @@ export class App extends Component {
   }
 
   searchInfo() {
+    this.setState({
+      showResult: false,
+    });
     if (validateURL.test(this.state.url)) {
-
-      let urlArray = this.state.url.split('/')
-      fetch("https://servers-frontend.fivem.net/api/servers/single/" + urlArray[2])
+      let urlArray = this.state.url.split("/");
+      fetch(
+        "https://servers-frontend.fivem.net/api/servers/single/" + urlArray[2]
+      )
         .then((res) => res.json())
         .then((data) => {
-          if (!data['error']) {
-            if (!this.isUrl(data['Data']['connectEndPoints'][0])) {
-              let ip = data['Data']['connectEndPoints'][0].split(':')
+          if (!data["error"]) {
+            if (!this.isUrl(data["Data"]["connectEndPoints"][0])) {
+              let ip = data["Data"]["connectEndPoints"][0].split(":");
               fetch("http://ip-api.com/json/" + ip[0])
                 .then((res) => res.json())
                 .then((data) => {
                   this.setState({
-                    address: data['query'],
-                    isp: data['isp'],
-                    country: data['country']
-                  })
+                    address: data["query"],
+                    isp: data["isp"],
+                    country: data["country"],
+                  });
                 })
                 .catch(console.log);
             }
             this.setState({
-              server_name: data['Data']['hostname'],
-              owner_name: data['Data']['ownerName'],
-              owner_url: data['Data']['ownerProfile'],
-              total_players: data['Data']['clients'],
-            })
+              server_name: data["Data"]["hostname"],
+              owner_name: data["Data"]["ownerName"],
+              owner_url: data["Data"]["ownerProfile"],
+              total_players: data["Data"]["clients"],
+            });
+
+            this.setState({
+              showResult: true,
+            });
           }
         })
         .catch(console.log);
@@ -57,9 +65,14 @@ export class App extends Component {
   }
 
   isUrl(s) {
-    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    var regexp =
+      /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     return regexp.test(s);
   }
+
+  state = {
+    resultShow: false,
+  };
 
   render() {
     return (
@@ -95,6 +108,9 @@ export class App extends Component {
                     </button>
                   </div>
                 </div>
+                <p className="mt-3 text-sm text-red-300 sm:mt-4">
+                  {this.state.error}
+                </p>
                 <p className="mt-3 text-sm text-gray-300 sm:mt-4">
                   Example: cfx.re/join/******.
                 </p>
@@ -102,8 +118,70 @@ export class App extends Component {
             </div>
           </div>
         </div>
-
-        <Result />
+        {this.state.showResult ? (
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="grid grid-rows-4 gap-x-4 gap-y-4 p-6">
+              <div>
+                <div className="text-sm font-medium text-gray-500">Address</div>
+                <div className="mt-1 text-sm">
+                  <a
+                    target="_blank"
+                    className="text-sky-400"
+                    href="https://ip-api.com/#{this.state.address}"
+                  >
+                    {this.state.address}
+                  </a>
+                </div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-500">Hosting</div>
+                <div className="mt-1 text-sm text-gray-900">
+                  {this.state.isp}
+                </div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-500">
+                  Location
+                </div>
+                <div className="mt-1 text-sm text-gray-900">
+                  {this.state.country}
+                </div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-500">
+                  Server Name
+                </div>
+                <div className="mt-1 text-sm text-gray-900">
+                  {this.state.server_name}
+                </div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-500">
+                  Owner Name
+                </div>
+                <div className="mt-1 text-sm text-gray-900">
+                  <a
+                    className="text-sky-400"
+                    target="_blank"
+                    href="{this.state.owner_url}"
+                  >
+                    {this.state.owner_name}
+                  </a>
+                </div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-500">
+                  Total Players
+                </div>
+                <div className="mt-1 text-sm text-gray-900">
+                  {this.state.total_players}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </>
     );
   }
