@@ -50,6 +50,10 @@ export class App extends Component {
               this.setState({
                 address: ip[0]
               });
+            } else {
+              this.setState({
+                address: data["Data"]["connectEndPoints"][0]
+              });
             }
             this.setState({
               server_name: data["Data"]["hostname"],
