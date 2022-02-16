@@ -37,22 +37,23 @@ export class App extends Component {
           if (!data["error"]) {
             if (!this.isValidURL(data["Data"]["connectEndPoints"][0])) {
               let ip = data["Data"]["connectEndPoints"][0].split(":");
-              fetch("http://ip-api.com/json/" + ip[0])
+              fetch("https://ipapi.co/" + ip[0] + "/json/")
                 .then((res) => res.json())
                 .then((data) => {
+                  console.log(data);
                   this.setState({
-                    isp: data["isp"],
-                    country: data["country"],
+                    isp: data["org"],
+                    country: data["country_name"],
                   });
                 })
                 .catch(console.log);
 
               this.setState({
-                address: ip[0]
+                address: ip[0],
               });
             } else {
               this.setState({
-                address: data["Data"]["connectEndPoints"][0]
+                address: data["Data"]["connectEndPoints"][0],
               });
             }
             this.setState({
@@ -72,10 +73,9 @@ export class App extends Component {
   }
 
   isValidURL(string) {
-    var res = /^(ftp|http|https):\/\/[^ "]+$/
-    return res.test(string)
-  };
-
+    var res = /^(ftp|http|https):\/\/[^ "]+$/;
+    return res.test(string);
+  }
 
   state = {
     resultShow: false,
