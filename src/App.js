@@ -40,7 +40,6 @@ export class App extends Component {
               fetch("https://ipapi.co/" + ip[0] + "/json/")
                 .then((res) => res.json())
                 .then((data) => {
-                  console.log(data);
                   this.setState({
                     isp: data["org"],
                     country: data["country_name"],
