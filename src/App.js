@@ -134,7 +134,7 @@ export class App extends Component {
                   <a
                     target="_blank"
                     className="text-sky-400"
-                    href="https://ip-api.com/#{this.state.address}"
+                    href={"https://ip-api.com/" + this.state.address}
                   >
                     {this.state.address}
                   </a>
