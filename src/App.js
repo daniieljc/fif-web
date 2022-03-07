@@ -169,7 +169,7 @@ export class App extends Component {
                   <a
                     className="text-sky-400"
                     target="_blank"
-                    href="{this.state.owner_url}"
+                    href={this.state.owner_url}
                   >
                     {this.state.owner_name}
                   </a>
