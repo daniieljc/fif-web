@@ -154,7 +154,7 @@ export class App extends Component {
                 </div>
               </div>
             </div>
-            <div className="grid gap-x-4 gap-y-4 p-6">
+            <div className="grid gap-x-4 gap-y-4 p-6 pt-0">
               <div>
                 <div className="text-sm font-medium text-gray-500">
                   Server Name
