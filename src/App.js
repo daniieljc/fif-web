@@ -37,7 +37,7 @@ export class App extends Component {
           if (!data["error"]) {
             if (!this.isValidURL(data["Data"]["connectEndPoints"][0])) {
               let ip = data["Data"]["connectEndPoints"][0].split(":");
-              fetch("http://ipinfo.io/json/" + ip[0] + "?token=3306efe9be28be")
+              fetch("http://ipinfo.io/" + ip[0] + "?token=3306efe9be28be")
                 .then((res) => res.json())
                 .then((data) => {
                   this.setState({
