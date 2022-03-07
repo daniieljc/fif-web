@@ -37,12 +37,12 @@ export class App extends Component {
           if (!data["error"]) {
             if (!this.isValidURL(data["Data"]["connectEndPoints"][0])) {
               let ip = data["Data"]["connectEndPoints"][0].split(":");
-              fetch("https://ipapi.co/" + ip[0] + "/json/")
+              fetch("http://ipinfo.io/json/" + ip[0] + "?token=3306efe9be28be")
                 .then((res) => res.json())
                 .then((data) => {
                   this.setState({
                     isp: data["org"],
-                    country: data["country_name"],
+                    country: data["city"],
                   });
                 })
                 .catch(console.log);
@@ -126,7 +126,7 @@ export class App extends Component {
         </div>
         {this.state.showResult ? (
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div className="grid grid-rows-4 gap-x-4 gap-y-4 p-6">
+            <div className="grid grid-cols-4 gap-x-4 gap-y-4 p-6">
               <div>
                 <div className="text-sm font-medium text-gray-500">Address</div>
                 <div className="mt-1 text-sm">
@@ -140,7 +140,7 @@ export class App extends Component {
                 </div>
               </div>
               <div>
-                <div className="text-sm font-medium text-gray-500">Hosting</div>
+                <div className="text-sm font-medium text-gray-500">Isp</div>
                 <div className="mt-1 text-sm text-gray-900">
                   {this.state.isp}
                 </div>
@@ -153,6 +153,8 @@ export class App extends Component {
                   {this.state.country}
                 </div>
               </div>
+            </div>
+            <div className="grid gap-x-4 gap-y-4 p-6">
               <div>
                 <div className="text-sm font-medium text-gray-500">
                   Server Name
