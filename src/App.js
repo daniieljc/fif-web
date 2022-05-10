@@ -16,6 +16,7 @@ export class App extends Component {
       total_players: undefined,
       showResult: false,
       error: undefined,
+      discord: undefined
     };
   }
 
@@ -60,9 +61,7 @@ export class App extends Component {
               owner_name: data["Data"]["ownerName"],
               owner_url: data["Data"]["ownerProfile"],
               total_players: data["Data"]["clients"],
-            });
-
-            this.setState({
+              discord: data["Data"]["vars"]['Discord'],
               showResult: true,
             });
           }
@@ -126,7 +125,7 @@ export class App extends Component {
         </div>
         {this.state.showResult ? (
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div className="grid grid-cols-4 gap-x-4 gap-y-4 p-6">
+            <div className="grid grid-cols-5 gap-x-4 gap-y-4 p-6">
               <div>
                 <div className="text-sm font-medium text-gray-500">Address</div>
                 <div className="mt-1 text-sm">
@@ -153,16 +152,6 @@ export class App extends Component {
                   {this.state.country}
                 </div>
               </div>
-            </div>
-            <div className="grid gap-x-4 gap-y-4 p-6 pt-0">
-              <div>
-                <div className="text-sm font-medium text-gray-500">
-                  Server Name
-                </div>
-                <div className="mt-1 text-sm text-gray-900">
-                  {this.state.server_name}
-                </div>
-              </div>
               <div>
                 <div className="text-sm font-medium text-gray-500">
                   Owner Name
@@ -179,10 +168,33 @@ export class App extends Component {
               </div>
               <div>
                 <div className="text-sm font-medium text-gray-500">
+                  Discord
+                </div>
+                <div className="mt-1 text-sm text-gray-900">
+                <a
+                    className="text-sky-400"
+                    target="_blank"
+                    href={"https://" + this.state.discord}
+                  >
+                    {this.state.discord}
+                  </a>                </div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-500">
                   Total Players
                 </div>
                 <div className="mt-1 text-sm text-gray-900">
                   {this.state.total_players}
+                </div>
+              </div>
+            </div>
+            <div>
+            <div className="grid grid-cols-1 gap-x-4 gap-y-4 p-6">
+                <div className="text-sm font-medium text-gray-500">
+                  Server Name
+                </div>
+                <div className="mt-1 text-sm text-gray-900">
+                  {this.state.server_name}
                 </div>
               </div>
             </div>
