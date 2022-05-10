@@ -12,6 +12,7 @@ export class App extends Component {
       owner_name: undefined,
       owner_url: undefined,
       address: undefined,
+      addressPort: undefined,
       isp: undefined,
       total_players: undefined,
       showResult: false,
@@ -49,6 +50,7 @@ export class App extends Component {
 
               this.setState({
                 address: ip[0],
+                addressPort: ip[1]
               });
             } else {
               this.setState({
@@ -135,7 +137,8 @@ export class App extends Component {
                     className="text-sky-400"
                     href={"https://ipinfo.io/" + this.state.address}
                   >
-                    {this.state.address}
+                    {this.state.address}:{this.state.addressPort}
+
                   </a>
                 </div>
               </div>
