@@ -174,7 +174,7 @@ export class App extends Component {
                 <a
                     className="text-sky-400"
                     target="_blank"
-                    href={"https://" + this.state.discord}
+                    href={this.state.discord}
                   >
                     {this.state.discord}
                   </a>                </div>
